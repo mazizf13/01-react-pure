@@ -57,13 +57,13 @@ function Footer() {
   }
 }
 
-function FooterOpenHour(props) {
+function FooterOpenHour({ jamBuka, jamTutup }) {
   return (
     <footer className="footer">
       <div className="order">
         <p>
-          {new Date().getFullYear()} Warteg Mang Ucok | jam buka {props.jamBuka}{" "}
-          - jam tutup {props.jamTutup}
+          {new Date().getFullYear()} Warteg Mang Ucok | jam buka {jamBuka} - jam
+          tutup {jamTutup}
         </p>
         <button className="btn">Order</button>
       </div>
@@ -71,30 +71,26 @@ function FooterOpenHour(props) {
   );
 }
 
-function FooterCloseHour(props) {
+function FooterCloseHour({ jamBuka, jamTutup }) {
   return (
     <footer className="footer">
       <p>
-        maap masih tutup, bukanya jam {props.jamBuka} - {props.jamTutup}
+        maap masih tutup, bukanya jam {jamBuka} - {jamTutup}
       </p>
     </footer>
   );
 }
 
-function Food(props) {
-  console.log(props);
+function Food({ foodObj }) {
+  const { nama, deskripsi, harga, foto, stok } = foodObj;
   return (
     <li className="food">
-      <img
-        src={props.foodObj.foto}
-        alt={props.foodObj.nama}
-        width={100}
-        height={70}
-      />
+      <img src={foto} alt={nama} width={100} height={70} />
       <div>
-        <h3>{props.foodObj.nama}</h3>
-        <p>{props.foodObj.deskripsi}</p>
-        <span>{props.foodObj.harga}</span>
+        <h3>{nama}</h3>
+        <p>{deskripsi}</p>
+        <span>Rp{harga.toLocaleString()}</span>
+        <p>{stok ? "Tersedia" : "Habis"}</p>
       </div>
     </li>
   );
