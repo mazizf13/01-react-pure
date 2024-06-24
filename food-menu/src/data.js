@@ -1,7 +1,8 @@
 const foodMenu = [
   {
     nama: "Nasi Goreng",
-    deskripsi: "Nasi yang digoreng dengan bumbu rempah khas Indonesia",
+    deskripsi:
+      "Nasi yang digoreng dengan bumbu rempah khas Indonesia dan pembakaran masih menggunakan arang",
     harga: 25000,
     foto: "/food/nasi-goreng.jpg",
     stok: Math.random() >= 0.5 ? true : false,
@@ -16,7 +17,8 @@ const foodMenu = [
   },
   {
     nama: "Gado-Gado",
-    deskripsi: "Sayuran segar dengan bumbu kacang khas Indonesia",
+    deskripsi:
+      "Sayuran segar dengan bumbu kacang khas Indonesia, dan terdapat lontong sebagai pemenuhan karbohidrat",
     harga: 20000,
     foto: "/food/gado-gado.jpg",
     stok: Math.random() >= 0.5 ? true : false,
@@ -31,7 +33,8 @@ const foodMenu = [
   },
   {
     nama: "Soto Ayam",
-    deskripsi: "Sup ayam dengan kuah kuning dan berbagai rempah",
+    deskripsi:
+      "Sup ayam dengan kuah kuning dan berbagai rempah-rempah khas Indonesia",
     harga: 18000,
     foto: "/food/soto-ayam.jpg",
     stok: Math.random() >= 0.5 ? true : false,
@@ -39,7 +42,7 @@ const foodMenu = [
   {
     nama: "Martabak",
     deskripsi:
-      "Makanan dadakan yang terbuat dari adonan tepung dengan berbagai isian",
+      "Makanan dadakan yang terbuat dari adonan tepung dengan berbagai isian seperti daging",
     harga: 20000,
     foto: "/food/martabak.jpg",
     stok: Math.random() >= 0.5 ? true : false,
@@ -53,7 +56,8 @@ const foodMenu = [
   },
   {
     nama: "Soto Betawi",
-    deskripsi: "Sup daging dengan kuah santan kental khas Betawi",
+    deskripsi:
+      "Sup daging dengan kuah santan kental serta rempah khusus khas Betawi",
     harga: 22000,
     foto: "/food/soto-betawi.jpg",
     stok: Math.random() >= 0.5 ? true : false,
@@ -61,7 +65,7 @@ const foodMenu = [
   {
     nama: "Ayam Penyet",
     deskripsi:
-      "Ayam yang digeprek dengan bumbu rempah dan disajikan dengan sambal",
+      "Ayam yang digeprek dengan bumbu rempah dan disajikan dengan sambal terasi",
     harga: 18000,
     foto: "/food/ayam-penyet.jpg",
     stok: Math.random() >= 0.5 ? true : false,

@@ -24,7 +24,6 @@ body {
 .container {
   max-width: 80rem;
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,6 +176,95 @@ body {
 
 .btn:hover {
   background-color: #e9bb24;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu > p {
+    width: 100%;
+  }
+
+  .foods {
+    grid-template-columns: 1fr;
+  }
+
+  .food {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .food img {
+    width: 100%;
+    height: auto;
+  }
+
+  .food div {
+    align-items: start;
+    text-align: start;
+    padding: 0;
+  }
+
+  .header h1 {
+    font-size: 4rem;
+  }
+
+  .menu h2 {
+    font-size: 2rem;
+  }
+
+  .food h3 {
+    font-size: 1.6rem;
+  }
+
+  .food p {
+    font-size: 1.2rem;
+  }
+
+  .food span {
+    font-size: 1.4rem;
+  }
+
+  .btn {
+    font-size: 1.2rem;
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .container {
+    gap: 2.4rem;
+  }
+
+  .header h1 {
+    font-size: 3.2rem;
+  }
+
+  .menu h2 {
+    font-size: 1.8rem;
+  }
+
+  .food h3 {
+    font-size: 1.4rem;
+  }
+
+  .food p {
+    font-size: 1rem;
+  }
+
+  .food span {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 1.5rem 3rem;
+  }
 }
 
 /*
