@@ -28,7 +28,22 @@ function Menu() {
 }
 
 function Footer() {
-  return <footer>{new Date().getFullYear()} Warung Mang Ucok</footer>;
+  const hour = new Date().getHours();
+  const jamBuka = 9;
+  const jamTutup = 22;
+
+  if (hour < jamBuka || hour > jamTutup) {
+    alert("Warteg tutup");
+  } else {
+    alert("Warteg buka");
+  }
+
+  return (
+    <footer>
+      {new Date().getFullYear()} Warung Mang Ucok | jam buka {jamBuka} - jam
+      tutup {jamTutup}
+    </footer>
+  );
 }
 
 function Food() {
