@@ -91,13 +91,12 @@ function Food({ foodObj }) {
   const { nama, deskripsi, harga, foto, stok } = foodObj;
   console.log(foto);
   return (
-    <li className="food">
+    <li className={`food ${!stok ? "sold-out" : ""}`}>
       <img src={foto} alt={nama} width={100} height={70} />
       <div>
         <h3>{nama}</h3>
         <p>{deskripsi}</p>
-        <span>Rp{harga.toLocaleString()}</span>
-        <p>{stok ? "Tersedia" : "Habis"}</p>
+        <span>{stok ? `Rp ${harga.toLocaleString()}` : "Habis"}</span>
       </div>
     </li>
   );
