@@ -66,6 +66,14 @@ const foodMenu = [
     foto: "food/ayam-penyet.jpg",
     stok: Math.random() >= 0.5 ? true : false,
   },
+  {
+    nama: "Gurami Bakar",
+    deskripsi:
+      "Gurami bakar dengan bumbu rempah dan disajikan dengan sambal terasi mantap",
+    harga: 45000,
+    foto: "food/ikan-bakar.jpg",
+    stok: Math.random() >= 0.5 ? true : false,
+  },
 ];
 
 export default foodMenu;
