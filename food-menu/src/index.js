@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import "./index.css";
+
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -12,24 +14,30 @@ function App() {
 }
 
 function Header() {
-  return <h1>Warung Mang Ucok</h1>;
+  const style = {
+    color: "red",
+    fontSize: "50px",
+    textTransform: "uppercase",
+  };
+
+  return <h1 style={style}>Warteg Mang Ucok</h1>;
 }
 
 function Menu() {
   return (
-    <div>
+    <main className="menu">
       <h2>Menu Kita</h2>
       <Food />
       <Food />
       <Food />
       <Food />
-    </div>
+    </main>
   );
 }
 
 function Footer() {
   const hour = new Date().getHours();
-  const jamBuka = 9;
+  const jamBuka = 7;
   const jamTutup = 22;
 
   if (hour < jamBuka || hour > jamTutup) {
@@ -39,8 +47,8 @@ function Footer() {
   }
 
   return (
-    <footer>
-      {new Date().getFullYear()} Warung Mang Ucok | jam buka {jamBuka} - jam
+    <footer className="footer">
+      {new Date().getFullYear()} Warteg Mang Ucok | jam buka {jamBuka} - jam
       tutup {jamTutup}
     </footer>
   );
