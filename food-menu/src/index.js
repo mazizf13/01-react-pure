@@ -27,10 +27,69 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Menu Kita</h2>
-      <Food />
-      <Food />
-      <Food />
-      <Food />
+      <Food
+        nama="Nasi Goreng"
+        deskripsi="Nasi yang digoreng dengan bumbu rempah khas Indonesia"
+        harga={25000}
+        foto="food/nasi-goreng.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Sate Ayam"
+        deskripsi="Potongan daging yam yang ditusuk dan dibakar, disajikan dengan bumbu kacang"
+        harga={15000}
+        foto="food/sate-ayam.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Gado-Gado"
+        deskripsi="Sayuran segar dengan bumbu kacang khas Indonesia"
+        harga={20000}
+        foto="food/gado-gado.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Rendang"
+        deskripsi="Daging yang dimasak dengan santan dan rempah-rempah khas Padang"
+        harga={30000}
+        foto="food/rendang.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Soto Ayam"
+        deskripsi="Sup ayam dengan kuah kuning dan berbagai rempah"
+        harga={18000}
+        foto="food/soto-ayam.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Martabak"
+        deskripsi="Makanan dadakan yang terbuat dari adonan tepung dengan berbagai isian"
+        harga={20000}
+        foto="food/martabak.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Bakso"
+        deskripsi="Bola daging yang direbus disajikan dengan mie dan kuah kaldu"
+        harga={12000}
+        foto="food/bakso.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Soto Betawi"
+        deskripsi="Sup daging dengan kuah santan kental khas Betawi"
+        harga={22000}
+        foto="food/soto-betawi.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
+      <Food
+        nama="Ayam Penyet"
+        deskripsi="Ayam yang digeprek dengan bumbu rempah dan disajikan dengan sambal"
+        harga={18000}
+        foto="food/ayam-penyet.jpg"
+        stok={Math.random() >= 0.5 ? true : false}
+      />
     </main>
   );
 }
@@ -54,17 +113,16 @@ function Footer() {
   );
 }
 
-function Food() {
+function Food(props) {
+  console.log(props);
   return (
-    <div>
-      <img
-        src="food/soto-betawi.jpg"
-        alt="Soto Betawi"
-        width={100}
-        height={70}
-      />
-      <h2>Soto Betawi</h2>
-      <p>Soto Betawi dari Jakarta</p>
+    <div className="food">
+      <img src={props.foto} alt={props.nama} width={100} height={70} />
+      <div>
+        <h3>{props.nama}</h3>
+        <p>{props.deskripsi}</p>
+        <span>{props.harga}</span>
+      </div>
     </div>
   );
 }
