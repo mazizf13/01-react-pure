@@ -51,32 +51,34 @@ function Footer() {
   const isOpen = hour >= jamBuka && hour <= jamTutup;
 
   if (isOpen) {
-    return (
-      <footer className="footer">
-        {isOpen ? (
-          <div className="order">
-            <p>
-              {new Date().getFullYear()} Warteg Mang Ucok | jam buka {jamBuka} -
-              jam tutup {jamTutup}
-            </p>
-            <button className="btn">Order</button>
-          </div>
-        ) : (
-          <p>
-            maap masih tutup, bukanya jam {jamBuka} - {jamTutup}
-          </p>
-        )}
-      </footer>
-    );
+    return <FooterOpenHour jamBuka={jamBuka} jamTutup={jamTutup} />;
   } else {
-    return (
-      <footer className="footer">
-        <p>
-          maap masih tutup, bukanya jam {jamBuka} - {jamTutup}
-        </p>
-      </footer>
-    );
+    return <FooterCloseHour jamBuka={jamBuka} jamTutup={jamTutup} />;
   }
+}
+
+function FooterOpenHour(props) {
+  return (
+    <footer className="footer">
+      <div className="order">
+        <p>
+          {new Date().getFullYear()} Warteg Mang Ucok | jam buka {props.jamBuka}{" "}
+          - jam tutup {props.jamTutup}
+        </p>
+        <button className="btn">Order</button>
+      </div>
+    </footer>
+  );
+}
+
+function FooterCloseHour(props) {
+  return (
+    <footer className="footer">
+      <p>
+        maap masih tutup, bukanya jam {props.jamBuka} - {props.jamTutup}
+      </p>
+    </footer>
+  );
 }
 
 function Food(props) {
