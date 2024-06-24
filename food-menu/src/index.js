@@ -32,11 +32,17 @@ function Menu() {
     <main className="menu">
       <h2>Menu Kita</h2>
       {numFoods > 0 ? (
-        <ul className="foods">
-          {data.map((food) => (
-            <Food foodObj={food} key={food.nama} />
-          ))}
-        </ul>
+        <>
+          <p>
+            Aneka makanan Indonesia yang disajikan oleh Warteg Mang Ucok sebagai
+            pemenuhan makanan sehat yang diperlukan dalam kehidupan sehari-hari.
+          </p>
+          <ul className="foods">
+            {data.map((food) => (
+              <Food foodObj={food} key={food.nama} />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>Lagi mudik, Senin depan baru buka.</p>
       )}
@@ -83,6 +89,7 @@ function FooterCloseHour({ jamBuka, jamTutup }) {
 
 function Food({ foodObj }) {
   const { nama, deskripsi, harga, foto, stok } = foodObj;
+  console.log(foto);
   return (
     <li className="food">
       <img src={foto} alt={nama} width={100} height={70} />
