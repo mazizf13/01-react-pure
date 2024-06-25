@@ -3,6 +3,44 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
+const socialMedia = [
+  {
+    icon: "fa-linkedin",
+    href: "https://www.linkedin.com/in/mazizf13/",
+  },
+  {
+    icon: "fa-github",
+    href: "https://github.com/mazizf13/",
+  },
+  {
+    icon: "fa-facebook",
+    href: "https://www.instagram.com/mazizf_/",
+  },
+  {
+    icon: "fa-instagram",
+    href: "https://www.instagram.com/mazizf_/",
+  },
+  {
+    icon: "fa-twitter",
+    href: "https://x.com/xy_aziz",
+  },
+];
+
+const badges = [
+  {
+    icon: "fa-js",
+    text: "JavaScript",
+  },
+  {
+    icon: "fa-react",
+    text: "React",
+  },
+  {
+    icon: "fa-node-js",
+    text: "Node.js",
+  },
+];
+
 function App() {
   return (
     <div className="card">
@@ -18,25 +56,29 @@ function App() {
   );
 }
 
-function SocialButton({ icon }) {
+function SocialButton({ icon, link }) {
   return (
-    <button>
+    <button onClick={() => window.open(link, "_blank")}>
       <i className={`fa-brands ${icon}`}></i>
     </button>
   );
 }
 
 function Header() {
+  const middleIndex = Math.floor(socialMedia.length / 2);
+  const socialLeft = socialMedia.slice(0, middleIndex);
+  const socialRight = socialMedia.slice(middleIndex);
   return (
     <>
       <div className="social-buttons">
-        <SocialButton icon="fa-facebook" />
-        <SocialButton icon="fa-twitter" />
-        <SocialButton icon="fa-instagram" />
+        {socialLeft.map((data, index) => (
+          <SocialButton key={index} icon={data.icon} link={data.href} />
+        ))}
       </div>
       <div className="social-buttons right">
-        <SocialButton icon="fa-linkedin" />
-        <SocialButton icon="fa-github" />
+        {socialRight.map((data, index) => (
+          <SocialButton key={index} icon={data.icon} link={data.href} />
+        ))}
       </div>
     </>
   );
@@ -70,10 +112,10 @@ function Biodata() {
   );
 }
 
-function Badge({ text }) {
+function Badge({ icon, text }) {
   return (
     <button>
-      <div className="height">{text}</div>
+      <i className={`fa-brands ${icon}`}></i> {text}
     </button>
   );
 }
@@ -81,9 +123,9 @@ function Badge({ text }) {
 function Highlight() {
   return (
     <div className="buttons">
-      <Badge text="💻 React" />
-      <Badge text="🖥️ Next" />
-      <Badge text="🖨️ Svelte" />
+      {badges.map((badge, index) => (
+        <Badge key={index} icon={badge.icon} text={badge.text} />
+      ))}
     </div>
   );
 }
