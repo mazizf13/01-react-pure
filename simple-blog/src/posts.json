@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Tutorial Belajar Reactjs Lengkap",
+    "tags": ["React", "JavaScript"],
+    "date": "2024-06-03",
+    "isNew": true
+  },
+  {
+    "id": 2,
+    "title": "Tutorial Belajar Vuejs Lengkap",
+    "tags": ["Node.js", "Express"],
+    "date": "2024-05-04",
+    "isNew": false
+  },
+  {
+    "id": 3,
+    "title": "Tutorial Belajar Nextjs Lengkap",
+    "tags": ["next", "tfrontend"],
+    "date": "2024-03-01",
+    "isNew": false
+  },
+  {
+    "id": 4,
+    "title": "Tutorial Lengkap Cara Membuka Tutup Botol",
+    "tags": ["Tutorial", "Botol"],
+    "date": "2024-05-01",
+    "isNew": true
+  }
+]
