@@ -720,7 +720,7 @@
 
 // export default App;
 
-// SORTING DATA SERIES THROUGH STATE
+// SORTING DATA SERIES THROUGH STATE AND DELETE ALLITEMS
 import { useState, useEffect } from "react";
 
 const initialListItems = [
@@ -799,6 +799,10 @@ function ListManager({ initialItems }) {
     });
   }
 
+  function clearAllItems() {
+    setListItems([]);
+  }
+
   function sortItems(items, option) {
     let sortedItems = [...items];
     switch (option) {
@@ -824,6 +828,7 @@ function ListManager({ initialItems }) {
         addItem={addItem}
         sortOption={sortOption}
         setSortOption={setSortOption}
+        clearAllItems={clearAllItems}
       />
       <CheckList
         listItems={listItems}
@@ -836,7 +841,7 @@ function ListManager({ initialItems }) {
   );
 }
 
-function Form({ addItem, sortOption, setSortOption }) {
+function Form({ addItem, sortOption, setSortOption, clearAllItems }) {
   const [title, setTitle] = useState("");
 
   function handleSubmit(e) {
@@ -858,6 +863,9 @@ function Form({ addItem, sortOption, setSortOption }) {
         onChange={(e) => setTitle(e.target.value)}
       />
       <button type="submit">Add</button>
+      <button type="button" onClick={clearAllItems}>
+        Clear All
+      </button>
       <div className="sort-options">
         <label>
           <input
