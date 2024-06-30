@@ -141,15 +141,3 @@ input[type="checkbox"] {
   font-weight: 700;
   padding: 3.2rem 0;
 }
-
-input[type="text"] {
-  border: 1px solid brown;
-}
-
-.sort-section {
-  margin-top: 10px;
-}
-
-.sort-section label {
-  margin-right: 5px;
-}

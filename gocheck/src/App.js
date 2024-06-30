@@ -759,8 +759,8 @@ function ListManager({ initialItems }) {
   const [sortOption, setSortOption] = useState("input");
 
   useEffect(() => {
-    sortItems(sortOption);
-  }, [listItems, sortOption]);
+    setListItems(sortItems(listItems, sortOption));
+  }, [sortOption]);
 
   function addItem(title) {
     const newItem = {
@@ -768,61 +768,54 @@ function ListManager({ initialItems }) {
       title,
       done: false,
     };
-    setListItems((prevItems) => [...prevItems, newItem]);
+    setListItems((prevItems) => {
+      const updatedItems = [...prevItems, newItem];
+      return sortItems(updatedItems, sortOption);
+    });
   }
 
   function toggleItemDone(id) {
-    setListItems((prevItems) =>
-      prevItems.map((item) =>
+    setListItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
         item.id === id ? { ...item, done: !item.done } : item
-      )
-    );
-    moveItemToEnd(id);
+      );
+      return sortItems(updatedItems, sortOption);
+    });
   }
 
   function removeItem(id) {
-    setListItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setListItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== id);
+      return sortItems(updatedItems, sortOption);
+    });
   }
 
   function updateItem(id, newTitle) {
-    setListItems((prevItems) =>
-      prevItems.map((item) =>
+    setListItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
         item.id === id ? { ...item, title: newTitle } : item
-      )
-    );
+      );
+      return sortItems(updatedItems, sortOption);
+    });
   }
 
-  function sortItems(option) {
+  function sortItems(items, option) {
+    let sortedItems = [...items];
     switch (option) {
       case "title":
-        setListItems((prevItems) =>
-          [...prevItems].sort((a, b) => a.title.localeCompare(b.title))
+        sortedItems = sortedItems.sort((a, b) =>
+          a.title.localeCompare(b.title)
         );
         break;
       case "status":
-        setListItems((prevItems) =>
-          [...prevItems].sort((a, b) => a.done - b.done)
-        );
+        sortedItems = sortedItems.sort((a, b) => a.done - b.done);
         break;
       default:
-        setListItems((prevItems) => [...prevItems]);
         break;
     }
-  }
-
-  function moveItemToEnd(id) {
-    setListItems((prevItems) => {
-      const itemIndex = prevItems.findIndex((item) => item.id === id);
-      if (itemIndex === -1) return prevItems;
-
-      const movedItem = prevItems[itemIndex];
-      const updatedItems = [
-        ...prevItems.slice(0, itemIndex),
-        ...prevItems.slice(itemIndex + 1),
-        movedItem,
-      ];
-      return updatedItems;
-    });
+    // Move done items to the end
+    sortedItems = sortedItems.sort((a, b) => a.done - b.done);
+    return sortedItems;
   }
 
   return (
