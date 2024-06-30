@@ -760,7 +760,7 @@ function ListManager({ initialItems }) {
 
   useEffect(() => {
     setListItems(sortItems(listItems, sortOption));
-  }, [sortOption]);
+  }, [listItems, sortOption]);
 
   function addItem(title) {
     const newItem = {
