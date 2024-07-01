@@ -1,4 +1,4 @@
-export default function Friend({ friend }) {
+export default function Friend({ friend, onSelected }) {
   return (
     <li>
       <img src={friend.image} alt={friend.name} />
@@ -14,7 +14,9 @@ export default function Friend({ friend }) {
         </p>
       )}
       {friend.balance === 0 && <p>Kamu dan {friend.name} tidak ada hutang</p>}
-      <button className="button">Pilih</button>
+      <button className="button" onClick={() => onSelected(friend)}>
+        Pilih
+      </button>
     </li>
   );
 }
