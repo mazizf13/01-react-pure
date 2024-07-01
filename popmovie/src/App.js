@@ -80,14 +80,8 @@ function NumResults({ movies }) {
   );
 }
 
-function NavBar({ movies }) {
-  return (
-    <nav className="nav-bar">
-      <Logo />
-      <Search />
-      <NumResults movies={movies} />
-    </nav>
-  );
+function NavBar({ children }) {
+  return <nav className="nav-bar">{children}</nav>;
 }
 
 function MovieList({ movies }) {
@@ -189,13 +183,8 @@ function WatchedList() {
   );
 }
 
-function Main({ movies }) {
-  return (
-    <main className="main">
-      <MovieList movies={movies} />
-      <WatchedList />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
 export default function App() {
@@ -203,8 +192,15 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
-      <Main movies={movies} />
+      <NavBar>
+        <Logo />
+        <Search />
+        <NumResults movies={movies} />
+      </NavBar>
+      <Main>
+        <MovieList movies={movies} />
+        <WatchedList />
+      </Main>
     </>
   );
 }
