@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const tempMovieData = [
   {
@@ -100,10 +100,11 @@ function MovieItem({ movie }) {
 }
 
 function MovieList({ movies }) {
+  const [isOpen1, setIsOpen1] = useState(true);
   return (
     <ul className="list">
-      {movies?.map((movie) => (
-        <MovieItem key={movie.imdbID} movie={movie} />
+      {movies?.map((movie, index) => (
+        <MovieItem key={index} movie={movie} />
       ))}
     </ul>
   );
@@ -165,8 +166,8 @@ function WatchedItem({ movie }) {
 function WatchedList({ watched }) {
   return (
     <ul className="list">
-      {watched.map((movie) => (
-        <WatchedItem key={movie.imdbID} movie={movie} />
+      {watched.map((movie, index) => (
+        <WatchedItem key={index} movie={movie} />
       ))}
     </ul>
   );
@@ -189,17 +190,9 @@ function Main({ children }) {
   return <main className="main">{children}</main>;
 }
 
-const API_KEY = "53f1d949&s";
-
 export default function App() {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
-
-  useEffect(() => {
-    fetch(`http://www.omdbapi.com/?&apikey=${API_KEY}&s=oppenheimer`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
-  }, []);
 
   return (
     <>
