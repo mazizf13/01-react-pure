@@ -188,6 +188,17 @@ function BoxMovies({ children }) {
   );
 }
 
+function MovieDetails({ seletectedId, onCloseMovie }) {
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &#x2715;
+      </button>
+      {seletectedId}
+    </div>
+  );
+}
+
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
@@ -221,7 +232,11 @@ export default function App() {
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
   function handleSelectedMovieId(id) {
-    setSelectedMovieId(id);
+    setSelectedMovieId((seletectedId) => (seletectedId === id ? null : id));
+  }
+
+  function handleCloseMovie() {
+    setSelectedMovieId(null);
   }
 
   useEffect(() => {
@@ -276,8 +291,17 @@ export default function App() {
           )}
         </BoxMovies>
         <BoxMovies>
-          <WatchedSummary watched={watched} />
-          <WatchedList watched={watched} />
+          {selectedMovieId ? (
+            <MovieDetails
+              seletectedId={selectedMovieId}
+              onCloseMovie={handleCloseMovie}
+            />
+          ) : (
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedList watched={watched} />
+            </>
+          )}
         </BoxMovies>
       </Main>
     </>
