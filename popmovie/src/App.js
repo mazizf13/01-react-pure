@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import StarRating from "./StarRating";
 
 const tempMovieData = [
@@ -55,7 +54,9 @@ const average = (arr) =>
 function Logo() {
   return (
     <div className="logo">
-      <span role="img">🎫</span>
+      <span role="img" aria-label="ticket">
+        🎫
+      </span>
       <h1>Movie</h1>
     </div>
   );
@@ -87,12 +88,14 @@ function NavBar({ children }) {
 
 function MovieItem({ movie, onSelectMovieId }) {
   return (
-    <li key={movie.imdbID} onClick={() => onSelectMovieId(movie.imdbID)}>
+    <li onClick={() => onSelectMovieId(movie.imdbID)}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
         <p>
-          <span>🗓️</span>
+          <span role="img" aria-label="calendar">
+            🗓️
+          </span>
           <span>{movie.Year}</span>
         </p>
       </div>
@@ -124,20 +127,28 @@ function WatchedSummary({ watched }) {
       <h2>Movies you watched</h2>
       <div>
         <p>
-          <span>#️⃣</span>
+          <span role="img" aria-label="number sign">
+            #️⃣
+          </span>
           <span>{watched.length} movies</span>
         </p>
         <p>
-          <span>🎬</span>
-          <span>{avgImdbRating}</span>
+          <span role="img" aria-label="clapperboard">
+            🎬
+          </span>
+          <span>{avgImdbRating.toFixed(1)}</span>
         </p>
         <p>
-          <span>🌟</span>
+          <span role="img" aria-label="star">
+            🌟
+          </span>
           <span>{avgUserRating}</span>
         </p>
         <p>
-          <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span role="img" aria-label="hourglass">
+            ⏳
+          </span>
+          <span>{Math.trunc(avgRuntime)} min</span>
         </p>
       </div>
     </div>
@@ -146,20 +157,26 @@ function WatchedSummary({ watched }) {
 
 function WatchedItem({ movie }) {
   return (
-    <li key={movie.imdbID}>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+    <li>
+      <img src={movie.poster} alt={`${movie.title} poster`} />
+      <h3>{movie.title}</h3>
       <div>
         <p>
-          <span>🎬</span>
+          <span role="img" aria-label="clapperboard">
+            🎬
+          </span>
           <span>{movie.imdbRating}</span>
         </p>
         <p>
-          <span>🌟</span>
+          <span role="img" aria-label="star">
+            🌟
+          </span>
           <span>{movie.userRating}</span>
         </p>
         <p>
-          <span>⏳</span>
+          <span role="img" aria-label="hourglass">
+            ⏳
+          </span>
           <span>{movie.runtime} min</span>
         </p>
       </div>
@@ -190,7 +207,7 @@ function BoxMovies({ children }) {
   );
 }
 
-function MovieDetails({ seletectedId, onCloseMovie }) {
+function MovieDetails({ selectedId, onCloseMovie, onAddWatched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -207,13 +224,24 @@ function MovieDetails({ seletectedId, onCloseMovie }) {
     Director: director,
   } = movie;
 
-  console.log(title, year);
+  function handleAddWatched() {
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+    };
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  }
 
   useEffect(() => {
     async function getMovieDetails() {
       setIsLoading(true);
       const response = await fetch(
-        `https://www.omdbapi.com/?apikey=${API_KEY}&i=${seletectedId}`
+        `https://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedId}`
       );
       const data = await response.json();
       setMovie(data);
@@ -221,7 +249,7 @@ function MovieDetails({ seletectedId, onCloseMovie }) {
     }
 
     getMovieDetails();
-  }, [seletectedId]);
+  }, [selectedId]);
 
   return (
     <div className="details">
@@ -237,15 +265,21 @@ function MovieDetails({ seletectedId, onCloseMovie }) {
             <div className="details-overview">
               <h2>{title}</h2>
               <p>
-                <span>🗓️</span>
+                <span role="img" aria-label="calendar">
+                  🗓️
+                </span>
                 <span>{released}</span>
               </p>
               <p>
-                <span>⏳</span>
+                <span role="img" aria-label="hourglass">
+                  ⏳
+                </span>
                 <span>{runtime}</span>
               </p>
               <p>
-                <span>🌟</span>
+                <span role="img" aria-label="star">
+                  🌟
+                </span>
                 <span>{imdbRating}</span>
               </p>
             </div>
@@ -269,6 +303,9 @@ function MovieDetails({ seletectedId, onCloseMovie }) {
             </p>
             <div className="rating">
               <StarRating max={10} size={24} color="#fcc419" />
+              <button className="btn-add" onClick={handleAddWatched}>
+                + Add to Watched
+              </button>
             </div>
           </section>
         </>
@@ -299,18 +336,22 @@ function ErrorMessage({ message }) {
   );
 }
 
-const API_KEY = "53f1d949&s";
+const API_KEY = "53f1d949";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("spiderman");
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
   function handleSelectedMovieId(id) {
-    setSelectedMovieId((seletectedId) => (seletectedId === id ? null : id));
+    setSelectedMovieId((selectedId) => (selectedId === id ? null : id));
+  }
+
+  function handleAddWatched(movie) {
+    setWatched((watched) => [...watched, movie]);
   }
 
   function handleCloseMovie() {
@@ -371,8 +412,9 @@ export default function App() {
         <BoxMovies>
           {selectedMovieId ? (
             <MovieDetails
-              seletectedId={selectedMovieId}
+              selectedId={selectedMovieId}
               onCloseMovie={handleCloseMovie}
+              onAddWatched={handleAddWatched}
             />
           ) : (
             <>
