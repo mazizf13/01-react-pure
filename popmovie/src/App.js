@@ -271,6 +271,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   useEffect(() => {
     if (!title) return;
     document.title = `PopMovie | ${title}`;
+
+    // closures
+    return function () {
+      document.title = "PopMovie";
+    };
   }, [title]);
 
   return (
@@ -403,13 +408,16 @@ export default function App() {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchMovie() {
       try {
         setIsLoading(true);
         setError("");
 
         const res = await fetch(
-          `http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`
+          `http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`,
+          { signal: controller.signal }
         );
 
         if (!res.ok) throw new Error("Something went wrong");
@@ -419,7 +427,9 @@ export default function App() {
         if (data.Response === "False") throw new Error(data.Error);
 
         setMovies(data.Search);
+        setError("");
       } catch (error) {
+        if (error.name === "AbortError") return;
         setError(error.message);
       } finally {
         setIsLoading(false);
@@ -433,6 +443,9 @@ export default function App() {
     }
 
     fetchMovie();
+    return function () {
+      controller.abort();
+    };
   }, [query]);
 
   return (
