@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 
+const API_KEY = "53f1d949";
+
 const tempMovieData = [
   {
     imdbID: "tt15398776",
@@ -32,7 +34,7 @@ const tempWatchedData = [
     Year: "2013",
     Poster:
       "https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_SX300.jpg",
-    runtime: 180,
+    Runtime: "180 min",
     imdbRating: 8.6,
     userRating: 10,
   },
@@ -42,7 +44,7 @@ const tempWatchedData = [
     Year: "2023",
     Poster:
       "https://m.media-amazon.com/images/M/MV5BNjU3N2QxNzYtMjk1NC00MTc4LTk1NTQtMmUxNTljM2I0NDA5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
-    runtime: 114,
+    Runtime: "114 min",
     imdbRating: 7.2,
     userRating: 8,
   },
@@ -120,7 +122,7 @@ function MovieList({ movies, onSelectMovieId }) {
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  const avgRuntime = average(watched.map((movie) => parseInt(movie.Runtime)));
 
   return (
     <div className="summary">
@@ -158,8 +160,8 @@ function WatchedSummary({ watched }) {
 function WatchedItem({ movie, onDeleteWatched }) {
   return (
     <li>
-      <img src={movie.poster} alt={`${movie.title} poster`} />
-      <h3>{movie.title}</h3>
+      <img src={movie.Poster} alt={`${movie.Title} poster`} />
+      <h3>{movie.Title}</h3>
       <div>
         <p>
           <span role="img" aria-label="clapperboard">
@@ -177,7 +179,7 @@ function WatchedItem({ movie, onDeleteWatched }) {
           <span role="img" aria-label="hourglass">
             ⏳
           </span>
-          <span>{movie.runtime} min</span>
+          <span>{movie.Runtime}</span>
         </p>
         <button
           className="btn-delete"
@@ -243,11 +245,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   function handleAddWatched() {
     const newWatchedMovie = {
       imdbID: selectedId,
-      title,
-      year,
-      poster,
+      Title: title,
+      Year: year,
+      Poster: poster,
       imdbRating: Number(imdbRating),
-      runtime: Number(runtime.split(" ").at(0)),
+      Runtime: runtime,
       userRating: Number(userRating),
     };
     onAddWatched(newWatchedMovie);
@@ -347,7 +349,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
                 </>
               ) : (
                 <p>
-                  you have watched this movie with a rating of{" "}
+                  You have watched this movie with a rating of{" "}
                   {userRatingWatched} / 10
                 </p>
               )}
@@ -381,11 +383,9 @@ function ErrorMessage({ message }) {
   );
 }
 
-const API_KEY = "53f1d949";
-
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(tempWatchedData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("spiderman");
@@ -416,7 +416,7 @@ export default function App() {
         setError("");
 
         const res = await fetch(
-          `http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`,
+          `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`,
           { signal: controller.signal }
         );
 
